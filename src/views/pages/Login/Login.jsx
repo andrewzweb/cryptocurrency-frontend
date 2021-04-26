@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Nav from './components/Nav';
-import LoginForm from '../../components/LoginForm';
-import SignupForm from '../../components/SignupForm';
+import Nav        from '../../components/Nav/Nav';
+import LoginForm  from '../../forms/LoginForm/LoginForm';
+import SingUpForm from '../../forms/SingUpForm/SingUpForm';
 
 
 class Login extends Component {
@@ -86,7 +86,7 @@ class Login extends Component {
         form = <LoginForm handle_login={this.handle_login} />;
         break;
       case 'signup':
-        form = <SignupForm handle_signup={this.handle_signup} />;
+        form = <SingUpForm handle_signup={this.handle_signup} />;
         break;
       default:
         form = null;

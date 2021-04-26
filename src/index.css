@@ -45,3 +45,25 @@ html, body {
     color: #333;
     background-color: orange;
 }
+
+.Header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.Header a {
+    margin-left: 0.5rem;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    color: orange;
+    border: 1px solid orange;
+}
+
+.Header a:hover {
+    color: #333;
+    background-color: orange;
+}
+
