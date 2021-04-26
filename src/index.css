@@ -100,3 +100,64 @@ footer {
     bottom: 0;
     color: #999;
 }
+
+.LoginHolder {
+    margin: 0 auto;
+    max-width: 500px;
+    background-color: #444;
+}
+
+.LoginForm {
+    max-width: 500px;
+}
+
+.LoginForm ul {
+    list-style: none; 
+}
+
+.login-text {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    color: orange;
+}
+
+ul {
+    padding: 0;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+ul li {
+    padding: 0.5rem 2rem;
+}
+
+
+form {
+    margin: 1rem auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
+
+form input {
+    margin: 0.5rem 0;
+    background: #333;
+    color: orange;
+    border: none;
+    padding: 1rem;
+    font-size: 1.2rem;
+}
+
+.button-actions {
+    margin: 0.5rem 0;
+    border: none;
+    padding: 1rem;
+    background: orange;
+    color: #333;
+    font-size: 1.2rem;
+    width: 100%;
+}
