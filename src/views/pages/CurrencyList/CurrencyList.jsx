@@ -29,14 +29,13 @@ CurrencyItem.propTypes = {
 function CurrencyList({ currencies }) {
   return (
     <div className='currencyList'>
-      <h1 className='color-text'>Currency List</h1>
+      <h1 className='category-name color-text'>Currencies</h1>
       { currencies.map(( currency, index ) => {
         return <CurrencyItem
                  item={ currency }
                  key={index + 1}
                />
       })}
-      <h2>Footer</h2>
     </div>
   )
 }

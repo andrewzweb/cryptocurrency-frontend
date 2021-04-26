@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
 import Header from './views/components/Header/Header'
+import Footer from './views/components/Footer/Footer'
 import Login from './views/pages/Login/Login'
+import HomePage from './views/pages/Home/Home'
 import CurrencyList from './views/pages/CurrencyList/CurrencyList'
 
 
@@ -13,13 +15,22 @@ function App() {
 
   return (
     <>
-      <Header/>
       <BrowserRouter>
-        <nav className='Header'>
-          <Link to="/login">Login</Link>
-          <Link to="/currency">Currency</Link>
-        </nav>
+        <header className='Header'>
+          <logo className='Logo'>
+            <Link to="/home">CurrencyPulse</Link>
+          </logo>
+
+          <nav>
+            <Link to="/home">Home</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/currency">Currency</Link>
+          </nav>
+        </header>
         <Switch>
+          <Route path="/home">
+            <HomePage/>
+          </Route>
           <Route path="/login">
             <Login/>
           </Route>
@@ -28,6 +39,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      <Footer/>
     </ > 
   )
 }

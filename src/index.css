@@ -6,6 +6,11 @@ html, body {
     color: white;
 }
 
+#root {
+    width: 100%;
+    padding-bottom: 3rem;
+}
+
 .App {
     width: 100%;
     display: flex;
@@ -17,17 +22,25 @@ html, body {
 }
 
 .currencyList{
-    width: 500px;
+    margin: 0 auto;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     background-color: #333;
+}
+
+.category-name {
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .currencyItem{
     width: calc(100% - 2rem);
     padding: 0.5rem 1rem;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     display: flex;
     padding: 1rem;
 }
@@ -49,21 +62,41 @@ html, body {
 .Header {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+}
+
+logo {
     padding: 1rem;
 }
 
-.Header a {
+logo a {
+    text-decoration: none;
+    color: orange;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+nav a {
     margin-left: 0.5rem;
     text-decoration: none;
     padding: 0.5rem 1rem;
     color: orange;
     border: 1px solid orange;
+    transition: 0.3s;
 }
 
-.Header a:hover {
+nav a:hover {
     color: #333;
     background-color: orange;
 }
 
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    position: fixed; 
+    bottom: 0;
+    color: #999;
+}
