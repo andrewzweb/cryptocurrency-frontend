@@ -40,7 +40,7 @@ html, body {
     width: calc(100% - 2rem);
     padding: 0.5rem 1rem;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     display: flex;
     padding: 1rem;
 }
@@ -160,4 +160,73 @@ form input {
     color: #333;
     font-size: 1.2rem;
     width: 100%;
+}
+
+
+
+// == currency ===
+
+table {
+    width: calc(100% - 1rem);
+    padding: 0.5rem;
+}
+
+table.table-responsive {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+table.table-responsive tr {
+    background-color: #333;
+    color: white;
+}
+
+table.table-responsive th,
+table.table-responsive td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #222531;
+}
+
+tr:hover {
+    background-color: #444;
+}
+
+@media screen and (max-width: 600px) {
+    table.table-responsive {
+        border: 0;
+    }
+    
+    table.table-responsive thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    
+    table.table-responsive tr {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        margin-bottom: 30px;
+    }
+    
+    table.table-responsive td {
+        display: block;
+        text-align: right;
+    }
+    
+    table.table-responsive td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    
+    table.table-responsive td:last-child {
+        border-bottom: 0;
+    }
 }

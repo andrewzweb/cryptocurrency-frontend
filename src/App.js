@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
-import Header from './views/components/Header/Header'
 import Footer from './views/components/Footer/Footer'
 import HomePage from './views/pages/Home/Home'
 import Login from './views/pages/Login/Login'
 import CurrencyList from './views/pages/CurrencyList/CurrencyList'
 import Dashboard from './views/pages/Dashboard/Dashboard'
 
-import api from './api'
 
 function App() {
-  const state = useSelector(state => state.currency.currency);
-  const dispatch = useDispatch()
-  const [currency, setCurrency] = useState([]) 
-
-  useEffect(() => {
-    api.currency.getAllCurrency().then((res) => {
-      setCurrency(res.data);
-    })
-  }, []);
-
-  
+    
   return (
     <>
       <BrowserRouter>
@@ -46,7 +33,7 @@ function App() {
             <Login/>
           </Route>
           <Route path="/currency">
-            <CurrencyList currencies={ currency }/>
+            <CurrencyList />
           </Route>
           <Route path="/dashboard">
             <Dashboard/>

@@ -11,12 +11,11 @@ const initialState = {
 }
 
 const currencyReducer = (state = initialState, action) => {
-  if (action.type === 'GET_ALL'){
+  if (action.type === types.GET_ALL_CURRENCY){
     return state
   }
-  
-  return state
-} 
+  return state;
+}
 
 
 export default currencyReducer;

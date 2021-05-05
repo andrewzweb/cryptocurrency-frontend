@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 
-function CurrencyItem({item, key}){
+const CurrencyItem = ({item, key}) => {
   return(
     <div className='currencyItem' key={key}>
       <div className='currencyItem-actions'>
-        <a className='currencyItem-actions-add' href="">+</a>
+        <a className='currencyItem-actions-add'>+</a>
       </div>
       <div className='currencyItem-data'>
         <span>{ item.id }</span>
@@ -14,8 +15,8 @@ function CurrencyItem({item, key}){
         <span>{ item.price }</span>
       </div>
       <div className='currencyItem-actions'>
-        <a className='currencyItem-actions-edit' href="">edit</a>
-        <a className='currencyItem-actions-del' href="">del</a>
+        <a className='currencyItem-actions-edit'>edit</a>
+        <a className='currencyItem-actions-del'>del</a>
       </div>
     </div>
   )}
@@ -26,7 +27,10 @@ CurrencyItem.propTypes = {
 }
 
 
-function CurrencyList({ currencies }) {
+
+const CurrencyList =  ()  => {
+  const currencies = useSelector(({currency}) => currency.currency);
+
   return (
     <div className='currencyList'>
       <h1 className='category-name color-text'>Currencies</h1>
