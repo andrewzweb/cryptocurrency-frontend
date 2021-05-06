@@ -9,7 +9,6 @@ import Dashboard from './views/pages/Dashboard/Dashboard'
 
 
 function App() {
-    
   return (
     <>
       <BrowserRouter>

@@ -13,17 +13,10 @@ function Dashboard() {
   );
   
   useEffect(() => {
-    console.log('soket');
-      
     Socket.onmessage = ({data, type}) => {
       const raw_data = JSON.parse(data)
-      console.log('data', raw_data)
       const clean_data = raw_data['dashboard']['dashboard']
-      console.log('clean data', clean_data)
-      
-      console.log('data ws:', clean_data)
       setDashboard(clean_data)
-      console.log('state change',dashboard)
     };
   }, []);
 
@@ -52,7 +45,7 @@ function Dashboard() {
 
   return (
     <>
-      { dashboard.length ? <h1>Dashboard: count: {dashboard.length}</h1> : <h1>Dashboard: count: {dashboard.length}</h1>}
+      { dashboard.length ? <h1>Dashboard count: {dashboard.length}</h1> : <h1>Dashboard count: {dashboard.length}</h1>}
       <button onClick={fetchData}>Update</button>
 
       <table className="table-responsive">

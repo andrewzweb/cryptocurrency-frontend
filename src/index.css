@@ -66,12 +66,12 @@ html, body {
     align-items: center;
 }
 
-.logo {
+.Logo {
     padding: 1rem;
-    font-size: 1.5rem;
 }
 
-.logo a {
+.Logo a {
+    font-size: 1.5rem;
     text-decoration: none;
     color: orange;
     font-weight: bold;
