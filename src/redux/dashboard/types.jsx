@@ -1,0 +1,1 @@
+export const UPDATE_DASHBOARD = 'UPDATE_DASHBOARD'

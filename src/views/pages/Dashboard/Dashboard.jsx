@@ -33,6 +33,13 @@ function Dashboard() {
     }))
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+    fetchData()
+    }, 700)
+  }, []);
+
+  
   const dashboardList = dashboard.map((currency, idx) =>
     <tr key={idx + 1}>
       <td data-label="numb">{ idx }</td>
@@ -48,7 +55,7 @@ function Dashboard() {
       { dashboard.length ? <h1>Dashboard: count: {dashboard.length}</h1> : <h1>Dashboard: count: {dashboard.length}</h1>}
       <button onClick={fetchData}>Update</button>
 
-      <table class="table-responsive">
+      <table className="table-responsive">
         <thead>
           <tr>
             <th>#</th>

@@ -14,9 +14,9 @@ function App() {
     <>
       <BrowserRouter>
         <header className='Header'>
-          <logo className='Logo'>
+          <div className='Logo'>
             <Link to="/home">CurrencyPulse</Link>
-          </logo>
+          </div>
 
           <nav>
             <Link to="/home">Home</Link>

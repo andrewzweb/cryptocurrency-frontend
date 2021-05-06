@@ -1,9 +1,8 @@
 import { combineReducers } from "redux";
-//import { reducer as formReducer } from "redux-form";
-import currencyReducer from './Currency/reducer'
-
-// import user from "./auth";
+import currencyReducer from './currency/reducer'
+import dashboardReducer from './dashboard/reducer'
 
 export default combineReducers({
-  currency: currencyReducer
+  currency: currencyReducer,
+  dashboard: dashboardReducer
 });
