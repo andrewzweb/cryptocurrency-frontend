@@ -1,36 +1,49 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 
 function Dashboard() {
   const [dashboard, setDashboard] = useState([]);
+  const [socketConnect, setSocketConnect] = useState(false);
+  const [socket, setSocket] = useState({});
 
-  const Socket = new WebSocket(
-    'ws://'
-      + '127.0.0.1:8000'
-      + '/ws/chat/'
-      + 'dashboard'
-      + '/'
-  );
+  useMemo( () => {
+    const Socket = new WebSocket(
+      'ws://'
+        + '127.0.0.1:8000'
+        + '/ws/chat/'
+        + 'dashboard'
+        + '/'
+    );
+    console.log('Socket connected!');
+
+    setSocket(Socket)
+    return setSocket(Socket)
+  }, [])
+
   
   useEffect(() => {
-    Socket.onmessage = ({data, type}) => {
+    socket.onmessage = ({data, type}) => {
       const raw_data = JSON.parse(data)
       const clean_data = raw_data['dashboard']['dashboard']
       setDashboard(clean_data)
     };
-  }, []);
+    socket.onclose = function () {
+      console.log('Socket lost connection!')
+    };
+  }, [socket]);
 
   const fetchData = () => {
-    Socket.send(JSON.stringify({
-      'command': 'update_dashboard'
+    socket.send(JSON.stringify({
+      'command': 'update_dashboard',
+      'username': 'atom'
     }))
   };
 
   useEffect(() => {
     setTimeout(() => {
     fetchData()
-    }, 700)
-  }, []);
+    }, 300)
+  }, [socketConnect]);
 
   
   const dashboardList = dashboard.map((currency, idx) =>
