@@ -1,5 +1,4 @@
 import { setHeader, TEST_API } from "../index";
-import axios from "axios";
 const SIGNALING_SERVER = "http://localhost:8000/ws/chat/dashboard"
 
 

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { store } from "../";
+//import axios from "axios";
+//import { store } from "../";
 
 import currency from './currency'
 
@@ -12,7 +12,6 @@ export const setHeader = () => {
     "Content-Type": "application/json",
     Authorization: `JWT ${token}`,
   };
-
   return header;
 };
 

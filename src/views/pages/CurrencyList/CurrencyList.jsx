@@ -18,7 +18,7 @@ const CurrencyList =  ()  => {
       <h1 className='category-name color-text'>Currencies</h1>
       
       { currencies && currencies.length > 0 && currencies.map(( currency, index ) => {
-        return <CurrencyItem item={ currency } key={index + 1} /> })}
+        return <CurrencyItem item={ currency } key={index.toString()} /> })}
     </div>
   )
 }
@@ -28,9 +28,9 @@ CurrencyList.propTypes = {
 }
 
 
-const CurrencyItem = ({item, key}) => {
+const CurrencyItem = ({item, index}) => {
   return(
-    <div className='currencyItem' key={key}>
+    <div className='currencyItem' key={index}>
       <div className='currencyItem-actions'>
         <a className='currencyItem-actions-add'>+</a>
       </div>
@@ -50,7 +50,7 @@ const CurrencyItem = ({item, key}) => {
 
 CurrencyItem.propTypes = {
   item: PropTypes.object.isRequired,
-  key: PropTypes.number.isRequired,
+  key: PropTypes.string.isRequired,
 }
 
 //const mapStateToProps = ( ({ currency }) => ({ currency }) );
