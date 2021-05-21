@@ -1,20 +1,23 @@
 html, body {
-    width: 100%;
-    padding: 0;
-    margin: 0;
     background: #333;
-    color: white;
-}
-
-#root {
-    width: 100%;
-    padding-bottom: 3rem;
+    color: #eee;
 }
 
 .App {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+
+}
+
+header {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+content {
+    width: 100%;
 }
 
 .color-text {
@@ -26,7 +29,6 @@ html, body {
     max-width: 1200px;
     display: flex;
     flex-direction: column;
-    background-color: #333;
 }
 
 .category-name {
@@ -62,32 +64,45 @@ html, body {
 .Header {
     width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    align-content: center;
 }
 
-.Logo {
+.Header .logo {
+
     padding: 1rem;
 }
 
-.Logo a {
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: orange;
-    font-weight: bold;
-    font-size: 1.2rem;
+.logo img {
+    width: 60px;
+    height: 60px;
 }
 
-nav a {
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+}
+
+.nav a {
+    display: flex;
+    flex-direction: row;
     margin-left: 0.5rem;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    color: orange;
-    border: 1px solid orange;
+    color: #666;
+    border-radius: 5px;
     transition: 0.3s;
+    font-weight: bold;
 }
 
-nav a:hover {
+.nav .active {
+    color: orange;
+}
+
+.nav a:hover {
     color: #333;
     background-color: orange;
 }
@@ -165,7 +180,7 @@ form input {
 
 
 
-// == currency ===
+// == currency table ===
 
 table {
     width: calc(100% - 1rem);

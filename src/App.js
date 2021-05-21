@@ -10,6 +10,7 @@ import Dashboard from './views/pages/Dashboard/Dashboard'
 
 import { configureStore } from "./redux/store";
 import {createBrowserHistory} from 'history'
+import Header from './views/components/Header/Header'
 
 // create store
 export const store = configureStore();
@@ -17,24 +18,13 @@ export const store = configureStore();
 // history
 const history = createBrowserHistory()
 
-
-function App() {
+function App(props) {
+  
   return (
-  <div>
+  <div className='App'>
     <Provider store={store}>
     <Router history={ history }>
-        <header className='Header'>
-          <div className='Logo'>
-            <Link to="/home">CurrencyPulse</Link>
-          </div>
-
-          <nav>
-            <Link to='/home'>Home</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/currency">Currency</Link>
-            <Link to="/dashboard">Dashboard</Link>
-          </nav>
-        </header>
+        <Header/>
         <Switch>
           <Route exact path="/login" component={Login}/>  
           <PrivateRoute path='/home' component={HomePage} exact={true}/>  
@@ -42,10 +32,12 @@ function App() {
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="*" component={Login}/> 
         </Switch>
+
     </Router>
     </Provider>
   </div>
   )
 }
+
 
 export default App;
