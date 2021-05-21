@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import {connect} from 'react-redux'
 
 
-function Dashboard() {
+const Dashboard = ({ username }) => {
   const [dashboard, setDashboard] = useState([]);
   const [socketConnect, setSocketConnect] = useState(false);
   const [socket, setSocket] = useState({});
 
-  useMemo( () => {
+  useMemo(() => {
     const Socket = new WebSocket(
       'ws://'
         + '127.0.0.1:8000'
@@ -14,37 +15,36 @@ function Dashboard() {
         + 'dashboard'
         + '/'
     );
-    console.log('Socket connected!');
-
-    setSocket(Socket)
+    console.info('Socket connected!');
+    setSocketConnect(true)
     return setSocket(Socket)
   }, [])
 
   
   useEffect(() => {
+    console.log('username', username)
     socket.onmessage = ({data, type}) => {
       const raw_data = JSON.parse(data)
       const clean_data = raw_data['dashboard']['dashboard']
       setDashboard(clean_data)
     };
     socket.onclose = function () {
-      console.log('Socket lost connection!')
+      console.info('Socket lost connection!')
     };
   }, [socket]);
 
   const fetchData = () => {
     socket.send(JSON.stringify({
       'command': 'update_dashboard',
-      'username': 'atom'
+      'username': username
     }))
   };
 
   useEffect(() => {
     setTimeout(() => {
     fetchData()
-    }, 300)
-  }, [socketConnect]);
-
+    }, 100)
+  }, [socketConnect, username, fetchData]);
   
   const dashboardList = dashboard.map((currency, idx) =>
     <tr key={idx + 1}>
@@ -58,9 +58,6 @@ function Dashboard() {
 
   return (
     <>
-      { dashboard.length ? <h1>Dashboard count: {dashboard.length}</h1> : <h1>Dashboard count: {dashboard.length}</h1>}
-      <button onClick={fetchData}>Update</button>
-
       <table className="table-responsive">
         <thead>
           <tr>
@@ -79,4 +76,8 @@ function Dashboard() {
   )
 }
 
-export default Dashboard;
+const mapStateToProps = ({auth}) => ({
+     username: auth.username
+});
+
+export default connect(mapStateToProps)(Dashboard);

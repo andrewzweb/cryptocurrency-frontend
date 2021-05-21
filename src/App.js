@@ -1,46 +1,50 @@
 import React from 'react'
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './routes/PrivateRoute'
 
-import Footer from './views/components/Footer/Footer'
 import HomePage from './views/pages/Home/Home'
 import Login from './views/pages/Login/Login'
 import CurrencyList from './views/pages/CurrencyList/CurrencyList'
 import Dashboard from './views/pages/Dashboard/Dashboard'
 
+import { configureStore } from "./redux/store";
+import {createBrowserHistory} from 'history'
+
+// create store
+export const store = configureStore();
+
+// history
+const history = createBrowserHistory()
+
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
+  <div>
+    <Provider store={store}>
+    <Router history={ history }>
         <header className='Header'>
           <div className='Logo'>
             <Link to="/home">CurrencyPulse</Link>
           </div>
 
           <nav>
-            <Link to="/home">Home</Link>
+            <Link to='/home'>Home</Link>
             <Link to="/login">Login</Link>
             <Link to="/currency">Currency</Link>
             <Link to="/dashboard">Dashboard</Link>
           </nav>
         </header>
         <Switch>
-          <Route path="/home">
-            <HomePage/>
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/currency">
-            <CurrencyList />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard/>
-          </Route>
+          <Route exact path="/login" component={Login}/>  
+          <PrivateRoute path='/home' component={HomePage} exact={true}/>  
+          <Route exact path="/currency" component={CurrencyList} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="*" component={Login}/> 
         </Switch>
-      </BrowserRouter>
-      <Footer/>
-    </ > 
+    </Router>
+    </Provider>
+  </div>
   )
 }
 

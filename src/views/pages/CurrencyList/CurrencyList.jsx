@@ -1,17 +1,15 @@
-import React, { useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllCurrency } from '../../../redux/currency/actions'
 
 
-const CurrencyList =  ()  => {
-  const [ currency, setCurrency ] = useState([]);
+const CurrencyList = () => {
   const currencies = useSelector(({currency}) => currency.currency); 
   const dispatch = useDispatch()
   
   useEffect(() => {
       dispatch(getAllCurrency())
-  }, [])
+  }, [dispatch])
   
   return (
     <div className='currencyList'>
@@ -23,16 +21,12 @@ const CurrencyList =  ()  => {
   )
 }
 
-CurrencyList.propTypes = {
-  currencies: PropTypes.array.isRequired,
-}
-
 
 const CurrencyItem = ({item, index}) => {
   return(
     <div className='currencyItem' key={index}>
       <div className='currencyItem-actions'>
-        <a className='currencyItem-actions-add'>+</a>
+        <button className='currencyItem-actions-add' href='#'>+</button>
       </div>
       <div className='currencyItem-data'>
         <span>{ item.pk }</span>
@@ -42,16 +36,12 @@ const CurrencyItem = ({item, index}) => {
         <span>{ item.market_cap }</span>
       </div>
       <div className='currencyItem-actions'>
-        <a className='currencyItem-actions-edit'>edit</a>
-        <a className='currencyItem-actions-del'>del</a>
+        <button href='#' className='currencyItem-actions-edit' >edit</button>
+        <button className='currencyItem-actions-del' href=''>del</button>
       </div>
     </div>
   )}
 
-CurrencyItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  key: PropTypes.string.isRequired,
-}
 
 //const mapStateToProps = ( ({ currency }) => ({ currency }) );
 
