@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './routes/PrivateRoute'
 
 import HomePage from './views/pages/Home/Home'
