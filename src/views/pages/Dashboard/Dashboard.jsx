@@ -55,7 +55,7 @@ const Dashboard = ({ username }) => {
 
   return (
     <>
-      <div>Dashboard: { username }</div>
+      <h1 className="category-name color-text" >Dashboard: { username }</h1>
       <table className="table-responsive">
         <thead>
           <tr>

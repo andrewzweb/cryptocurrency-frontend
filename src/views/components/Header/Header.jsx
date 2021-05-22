@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from "react-redux";
+import { compose } from "redux";
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import LogoImage from '../../../styles/images/logo-bitcoin.png'
@@ -19,12 +21,21 @@ const Header = (props) => {
         <Link className={(current_page === '/login') ? 'active' : ''} to="/login">Login</Link>
         <Link className={(current_page === '/currency') ? 'active' : ''} to="/currency">Currency</Link>
         <Link className={(current_page === '/dashboard') ? 'active' : ''} to="/dashboard">Dashboard</Link>
+        <a href="">User: { props.username }</a>
     </div>
   </header>
   )
 }
 
-const WrapHeader = withRouter(Header);
+const mapStateToProps = ({ auth }) => ({
+  username: auth.username,
+})
 
-export default WrapHeader
+const enchance = compose(
+  withRouter,
+  connect(mapStateToProps)
+)
+
+
+export default enchance(Header)
 
