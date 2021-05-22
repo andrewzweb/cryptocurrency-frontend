@@ -20,8 +20,17 @@ const Dashboard = ({ username }) => {
     return setSocket(Socket)
   }, [])
 
-  
+  const fetchData = () => {
+    socket.send(JSON.stringify({
+      'command': 'update_dashboard',
+      'username': username
+    }))
+  };
+ 
   useEffect(() => {
+    socket.onopen = () => {
+      fetchData()
+    }
     console.log('username', username)
     socket.onmessage = ({data, type}) => {
       const raw_data = JSON.parse(data)
@@ -31,20 +40,8 @@ const Dashboard = ({ username }) => {
     socket.onclose = function () {
       console.info('Socket lost connection!')
     };
-  }, [socket]);
+  }, [socket, socketConnect, username]);
 
-  const fetchData = () => {
-    socket.send(JSON.stringify({
-      'command': 'update_dashboard',
-      'username': username
-    }))
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-    fetchData()
-    }, 100)
-  }, [socketConnect, username, fetchData]);
   
   const dashboardList = dashboard.map((currency, idx) =>
     <tr key={idx + 1}>
@@ -58,6 +55,7 @@ const Dashboard = ({ username }) => {
 
   return (
     <>
+      <div>Dashboard: { username }</div>
       <table className="table-responsive">
         <thead>
           <tr>
