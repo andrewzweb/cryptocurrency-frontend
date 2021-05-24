@@ -9,3 +9,11 @@ export const getAllCurrency = () => {
     )
   };
 }
+
+export const addCurrencyToDashboard = (id, data) => {
+  return async(dispatch, getState) => {
+    api.currency.addCurrencyToDashboard(id, data).then((res) =>
+      dispatch({ type: types.ADD_CURRENCY_TO_DASHBOARD, data: res})
+    )
+  };
+}

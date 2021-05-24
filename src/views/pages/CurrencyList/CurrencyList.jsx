@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllCurrency } from '../../../redux/currency/actions'
+import {connect} from 'react-redux'
+import { getAllCurrency, addCurrencyToDashboard } from '../../../redux/currency/actions'
 import '../../../styles/css/table-styles.css'
 
 
-const CurrencyList = () => {
-  const currencies = useSelector(({currency}) => currency.currency); 
-  const dispatch = useDispatch()
-  
+const CurrencyList = ({
+  username,
+  currencies, 
+  getAllCurrency,
+  addCurrencyToDashboard
+}) => {
   useEffect(() => {
-      dispatch(getAllCurrency())
-  }, [dispatch])
-  
+      getAllCurrency()
+  }, [getAllCurrency])
+
+
   return (
     <div className='currencyList'>
       <h1 className='category-name color-text'>Currencies</h1>
@@ -27,29 +30,37 @@ const CurrencyList = () => {
             <th>actions</th>
           </tr>
         </thead>
+        <tbody>
       { currencies && currencies.length > 0 && currencies.map(( currency, index ) => {
-        return <CurrencyItem item={ currency } key={index.toString()} /> })}
+        return <CurrencyItem handlerAdd={addCurrencyToDashboard} item={ currency } key={index.toString()} /> })}
+        </tbody>
       </table>
     </div>
   )
 }
 
 
-const CurrencyItem = ({item, index}) => {
+const CurrencyItem = ({item, index, handlerAdd, username}) => {
   const [dataItem, setDataItem] = useState([])
-  
+  const id = 1
   useEffect(() => {
     setDataItem(item)
   }, [item])
+  
+  const handlerAddToDashboard = () => {
+    const cur_obj = {
+      "account":
+        {"name": username },
+      "currency": [dataItem], 
+    }
 
-  const addInDashboard = () => {
-    console.log('action add to dashboar item: ', dataItem)
+    handlerAdd(id, JSON.stringify(cur_obj))
   }
-
+  
   return(
     <tr className='currencyItem' key={index}>
       <td data-label="add" className='currencyItem-actions'>
-        <button onClick={addInDashboard} className='currencyItem-actions-add' href='#'>+</button>
+        <button onClick={handlerAddToDashboard} className='currencyItem-actions-add' href='#'>+</button>
       </td>
       <td data-label="id">{ item.pk }</td>  
       <td data-label="nname">{ item.name }</td>
@@ -64,9 +75,13 @@ const CurrencyItem = ({item, index}) => {
   )}
 
 
-//const mapStateToProps = ( ({ currency }) => ({ currency }) );
+const mapStateToProps = (state) => ({
+  currencies: state.currency.items,
+  username: state.auth.username
+});
 
 
-//export default connect(mapStateToProps, { getAllCurrency, getAll })(CurrencyList)
-
-export default CurrencyList
+export default connect(
+  mapStateToProps,
+  { getAllCurrency, addCurrencyToDashboard })
+  (CurrencyList)

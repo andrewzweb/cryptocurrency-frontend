@@ -5,8 +5,7 @@ export default {
   getAllCurrency: () => {
     let config = {
       method: "GET",
-      baseURL: `${TEST_API}/currency/`,
-      headers: setHeader(),
+      baseURL: `${TEST_API}/currency/`
     };
     return axios(config).then((res) => res && res.data);
   },
@@ -41,6 +40,15 @@ export default {
       method: "DELETE",
       baseURL: `${TEST_API}/currency/${id}`,
       headers: setHeader(),
+    };
+    return axios(config).then((res) => res && res.data);
+  },
+  addCurrencyToDashboard: (id, data) => {
+    let config = {
+      method: "PUT",
+      baseURL: `${TEST_API}/dashboard/${id}`,
+      headers: setHeader(),
+      data,
     };
     return axios(config).then((res) => res && res.data);
   },

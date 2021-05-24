@@ -20,14 +20,15 @@ const Dashboard = ({ username }) => {
     return setSocket(Socket)
   }, [])
 
-  const fetchData = () => {
-    socket.send(JSON.stringify({
-      'command': 'update_dashboard',
-      'username': username
-    }))
-  };
  
   useEffect(() => {
+    const fetchData = () => {
+      socket.send(JSON.stringify({
+        'command': 'update_dashboard',
+        'username': username
+      }))
+    };
+    
     socket.onopen = () => {
       fetchData()
     }

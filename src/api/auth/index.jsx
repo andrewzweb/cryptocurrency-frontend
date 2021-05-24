@@ -14,6 +14,5 @@ export default {
           headers: setHeader(),
         };
         return axios(config).then((res) => res && res.data);
-    },        
-
+    },
 }
