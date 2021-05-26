@@ -2,75 +2,38 @@ import React, { Component } from 'react';
 import Nav        from '../../components/Nav/Nav';
 import LoginForm  from '../../forms/LoginForm/LoginForm';
 import SingUpForm from '../../forms/SingUpForm/SingUpForm';
+import {connect} from 'react-redux'
+import { compose } from "redux";
+import { withRouter } from 'react-router';
+import { singIn, singUp, logIn, logOut } from '../../../redux/auth/actions'
+
 
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: '',
-      logged_in: localStorage.getItem('token') ? true : false,
-      username: ''
+      displayed_form: 'login',
+      isAuthenticated: this.props.isAuthenticated,
+      username: this.props.username
     };
-  }
-
-  componentDidMount() {
-    if (this.state.logged_in) {
-      fetch('http://localhost:8000/api/current_user/', {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(json => {
-          this.setState({ username: json.username });
-        });
-    }
   }
 
   handle_login = (e, data) => {
     e.preventDefault();
-    fetch('http://localhost:8000/account/token-auth/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(json => {
-        localStorage.setItem('token', json.token);
-        this.setState({
-          logged_in: true,
-          displayed_form: '',
-          username: json.user.username
-        });
-      });
+    this.props.logIn(data);
+    this.props.history.push("/dashboard")
   };
 
   handle_signup = (e, data) => {
     e.preventDefault();
-    fetch('http://localhost:8000/api/users/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(json => {
-        localStorage.setItem('token', json.token);
-        this.setState({
-          logged_in: true,
-          displayed_form: '',
-          username: json.username
-        });
-      });
+    this.props.singUp(data);
+    this.props.history.push("/login");
   };
 
-  handle_logout = () => {
-    localStorage.removeItem('token');
-    this.setState({ logged_in: false, username: '' });
+  handle_logout = ( e ) => {
+    e.preventDefault();
+    this.props.logOut()
   };
 
   display_form = form => {
@@ -95,12 +58,12 @@ class Login extends Component {
     return (
       <div className='LoginHolder'>
         <h3 className='login-text'>
-          {this.state.logged_in
-            ? `Hello, ${this.state.username}`
+          {this.state.isAuthenticated
+            ? `Hello ${this.props.username}`
             : 'Please Log In'}
         </h3>
         <Nav className='LoginForm'
-          logged_in={this.state.logged_in}
+          logged_in={this.props.isAuthenticated}
           display_form={this.display_form}
           handle_logout={this.handle_logout}
         />
@@ -110,4 +73,21 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = ({auth}) => ({
+  username: auth.username,
+  isAuthenticated: auth.isAuthenticated,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logIn: (data) => dispatch(logIn(data)),
+  logOut: () => dispatch(logOut()),
+  singIn: () => dispatch(singIn()),
+  singUp: (data) => dispatch(singUp(data)),
+})
+
+const enchance = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)
+
+export default enchance(Login);

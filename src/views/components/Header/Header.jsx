@@ -21,7 +21,7 @@ const Header = (props) => {
         <Link className={(current_page === '/login') ? 'active' : ''} to="/login">Login</Link>
         <Link className={(current_page === '/currency') ? 'active' : ''} to="/currency">Currency</Link>
         <Link className={(current_page === '/dashboard') ? 'active' : ''} to="/dashboard">Dashboard</Link>
-        <a href="">User: { props.username }</a>
+        <Link href="#">User: { props.username }</Link>
     </div>
   </header>
   )

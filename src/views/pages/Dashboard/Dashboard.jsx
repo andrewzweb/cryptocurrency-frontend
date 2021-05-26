@@ -11,8 +11,8 @@ const Dashboard = ({ username }) => {
     const Socket = new WebSocket(
       'ws://'
         + '127.0.0.1:8000'
-        + '/ws/chat/'
-        + 'dashboard'
+        + '/ws/dashboard/'
+        + username
         + '/'
     );
     console.info('Socket connected!');
@@ -28,13 +28,12 @@ const Dashboard = ({ username }) => {
         'username': username
       }))
     };
-    
     socket.onopen = () => {
       fetchData()
     }
-    console.log('username', username)
     socket.onmessage = ({data, type}) => {
       const raw_data = JSON.parse(data)
+      console.log('raw', raw_data)
       const clean_data = raw_data['dashboard']['dashboard']
       setDashboard(clean_data)
     };

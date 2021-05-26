@@ -5,14 +5,14 @@ export default {
   getAllCurrency: () => {
     let config = {
       method: "GET",
-      baseURL: `${TEST_API}/currency/`
+      baseURL: `${TEST_API}/api/currency/`
     };
     return axios(config).then((res) => res && res.data);
   },
   getCurrency: (id) => {
     let config = {
       method: "GET",
-      baseURL: `${TEST_API}/currency/${id}`,
+      baseURL: `${TEST_API}/api/currency/${id}`,
       headers: setHeader(),
     };
     return axios(config).then((res) => res && res.data);
@@ -20,7 +20,7 @@ export default {
   createCurrency: (data) => {
     let config = {
       method: "POST",
-      baseURL: `${TEST_API}/currency/`,
+      baseURL: `${TEST_API}/api/currency/`,
       headers: setHeader(),
       data,
     };
@@ -29,7 +29,7 @@ export default {
   updateCurrency: (id, data) => {
     let config = {
       method: "PUT",
-      baseURL: `${TEST_API}/currency/${id}`,
+      baseURL: `${TEST_API}/api/currency/${id}`,
       headers: setHeader(),
       data,
     };
@@ -38,7 +38,7 @@ export default {
   deleteCurrency: (id) => {
       let config = {
       method: "DELETE",
-      baseURL: `${TEST_API}/currency/${id}`,
+      baseURL: `${TEST_API}/api/currency/${id}`,
       headers: setHeader(),
     };
     return axios(config).then((res) => res && res.data);
@@ -46,7 +46,7 @@ export default {
   addCurrencyToDashboard: (id, data) => {
     let config = {
       method: "PUT",
-      baseURL: `${TEST_API}/dashboard/${id}`,
+      baseURL: `${TEST_API}/api/dashboard/${id}`,
       headers: setHeader(),
       data,
     };

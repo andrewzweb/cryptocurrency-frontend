@@ -1,9 +1,9 @@
 import axios from "axios";
-//import { store } from "../";
 
 import currency from './currency'
+import auth from './auth'
 
-export const TEST_API = `http://localhost:8000/api`;
+export const TEST_API = 'http://localhost:8000';
 
 export const setHeader = () => {
   const token = localStorage.getItem("token");
@@ -16,5 +16,6 @@ export const setHeader = () => {
 };
 
 export default {
-  currency
+  currency,
+  auth
 };

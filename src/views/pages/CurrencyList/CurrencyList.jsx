@@ -32,7 +32,7 @@ const CurrencyList = ({
         </thead>
         <tbody>
       { currencies && currencies.length > 0 && currencies.map(( currency, index ) => {
-        return <CurrencyItem handlerAdd={addCurrencyToDashboard} item={ currency } key={index.toString()} /> })}
+        return <CurrencyItem username={username} handlerAdd={addCurrencyToDashboard} item={ currency } key={index.toString()} /> })}
         </tbody>
       </table>
     </div>

@@ -18,7 +18,7 @@ export const store = configureStore();
 // history
 const history = createBrowserHistory()
 
-function App(props) {
+function App() {
   
   return (
   <div className='App'>
@@ -27,10 +27,10 @@ function App(props) {
         <Header/>
         <Switch>
           <Route exact path="/login" component={Login}/>  
-          <PrivateRoute path='/home' component={HomePage} exact={true}/>  
+          <Route path='/home' component={HomePage} exact={true}/>  
           <Route exact path="/currency" component={CurrencyList} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="*" component={Login}/> 
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <Route exact path="*" component={HomePage}/> 
         </Switch>
 
     </Router>
