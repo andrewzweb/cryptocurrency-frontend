@@ -4,7 +4,7 @@ import api from '../../api';
 
 export const singIn = () => {
   return async(dispatch, getState) => {
-    localStorage.removeItem('token');
+    localStorage.getItem('token');
     api.auth.singin().then((res) =>
       dispatch({ type: types.SINGIN, data: res })
     )

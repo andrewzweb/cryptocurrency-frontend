@@ -18,7 +18,7 @@ const Dashboard = ({ username }) => {
     console.info('Socket connected!');
     setSocketConnect(true)
     return setSocket(Socket)
-  }, [])
+  }, [ username ])
 
  
   useEffect(() => {

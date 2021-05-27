@@ -19,6 +19,13 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.isAuthenticated){
+      this.props.singIn()
+    }
+  }
+
+
   handle_login = (e, data) => {
     e.preventDefault();
     this.props.logIn(data);
