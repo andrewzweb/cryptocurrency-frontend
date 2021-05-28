@@ -7,7 +7,7 @@ const AddCurrencyForm = (props) => {
     name: '',
     symbol: '',
     price: '',
-    market: ''
+    market_cap: ''
   })
 
   const handleChange = (evt) => {
@@ -21,7 +21,7 @@ const AddCurrencyForm = (props) => {
   const handlerForm = (evt) => {
     evt.preventDefault()
     props.addCurrency(state)
-    setState({name:'', symbol:'', price: '', market:''})
+    setState({name:'', symbol:'', price: '', market_cap:''})
   }
   
   return (
@@ -47,10 +47,10 @@ const AddCurrencyForm = (props) => {
                 onChange={handleChange}
               />
               <input
-                name="market"
+                name="market_cap"
                 type="number"
-                value={state.market}
-                placeHolder='marketcap'
+                value={state.market_cap}
+                placeHolder='market_cap'
                 onChange={handleChange}
               />
               <input
@@ -59,7 +59,6 @@ const AddCurrencyForm = (props) => {
                 value={state.price}
                 placeHolder='price'
                 onChange={handleChange}
-                step='2'
               />
               <input
                 className='modalButton'
