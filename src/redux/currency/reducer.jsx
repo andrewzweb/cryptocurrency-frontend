@@ -11,6 +11,9 @@ const currencyReducer = (state = initialState, action) => {
     return { ...state, items: action.data };
   case types.ADD_CURRENCY_TO_DASHBOARD :
     return { ...state, dashboard: action.data['currency']}
+  case types.ADD_CURRENCY :
+    console.log('reducer action data', action.data)
+    return { ...state, items: [...state.items, action.data]}
   default:
     return state;
   }

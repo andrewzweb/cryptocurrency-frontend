@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux'
-import { getAllCurrency, addCurrencyToDashboard } from '../../../redux/currency/actions'
+import { getAllCurrency, addCurrencyToDashboard, addCurrency }  from '../../../redux/currency/actions'
 import '../../../styles/css/table-styles.css'
-
+import AddCurrencyForm  from '../../forms/Currency/AddCurrencyForm'
 
 const CurrencyList = ({
   username,
-  currencies, 
+  currencies,
+  isAuthenticated,
+  addCurrency,
   getAllCurrency,
   addCurrencyToDashboard
 }) => {
@@ -18,6 +20,9 @@ const CurrencyList = ({
   return (
     <div className='currencyList'>
       <h1 className='category-name color-text'>Currencies</h1>
+      <div>
+        <AddCurrencyForm isAuthenticated={isAuthenticated} addCurrency={addCurrency}/>
+      </div>
       <table className="table-responsive">
       <thead>
           <tr>
@@ -77,11 +82,12 @@ const CurrencyItem = ({item, index, handlerAdd, username}) => {
 
 const mapStateToProps = (state) => ({
   currencies: state.currency.items,
-  username: state.auth.username
+  username: state.auth.username,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 
 export default connect(
   mapStateToProps,
-  { getAllCurrency, addCurrencyToDashboard })
+  { getAllCurrency, addCurrencyToDashboard, addCurrency })
   (CurrencyList)

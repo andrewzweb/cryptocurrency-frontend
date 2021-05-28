@@ -153,3 +153,31 @@ form input {
     background: orange;
     text-align: center;
 }
+
+
+/* === add modal === */
+
+.modal{
+    display: block;
+    position: fixed;
+    width: 400px;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.modalButton {
+    background: orange;
+    color: #333;
+    border: none;
+    padding: 0.7rem 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.closeButton{
+    margin-left: 1.2rem;
+    margin-top: 1rem;
+}
