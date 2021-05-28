@@ -36,28 +36,28 @@ const AddCurrencyForm = (props) => {
                 name="name"
                 type="text"
                 value={state.name}
-                placeHolder='name'
+                placeholder='name'
                 onChange={handleChange}
               />
               <input
                 name="symbol"
                 type="text"
                 value={state.symbol}
-                placeHolder='symbol'
+                placeholder='symbol'
                 onChange={handleChange}
               />
               <input
                 name="market_cap"
                 type="number"
                 value={state.market_cap}
-                placeHolder='market_cap'
+                placeholder='market_cap'
                 onChange={handleChange}
               />
               <input
                 name="price"
                 type="number"
                 value={state.price}
-                placeHolder='price'
+                placeholder='price'
                 onChange={handleChange}
               />
               <input
