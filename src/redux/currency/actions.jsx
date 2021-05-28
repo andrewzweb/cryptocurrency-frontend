@@ -19,6 +19,14 @@ export const addCurrency = (data) => {
   };
 }
 
+export const deleteCurrency = (id) => {
+  return async(dispatch, getState) => {
+    api.currency.deleteCurrency(id).then((res) =>
+      dispatch({ type: types.DELETE_CURRENCY, data: id })
+    )
+  };
+}
+
 export const addCurrencyToDashboard = (id, data) => {
   return async(dispatch, getState) => {
     api.currency.addCurrencyToDashboard(id, data).then((res) =>

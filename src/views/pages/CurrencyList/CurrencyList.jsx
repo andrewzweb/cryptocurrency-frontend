@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux'
-import { getAllCurrency, addCurrencyToDashboard, addCurrency }  from '../../../redux/currency/actions'
+import { getAllCurrency, addCurrencyToDashboard, addCurrency, deleteCurrency }  from '../../../redux/currency/actions'
 import '../../../styles/css/table-styles.css'
 import AddCurrencyForm  from '../../forms/Currency/AddCurrencyForm'
 
@@ -9,6 +9,7 @@ const CurrencyList = ({
   currencies,
   isAuthenticated,
   addCurrency,
+  deleteCurrency,
   getAllCurrency,
   addCurrencyToDashboard
 }) => {
@@ -37,7 +38,7 @@ const CurrencyList = ({
         </thead>
         <tbody>
       { currencies && currencies.length > 0 && currencies.map(( currency, index ) => {
-        return <CurrencyItem username={username} handlerAdd={addCurrencyToDashboard} item={ currency } key={index.toString()} /> })}
+        return <CurrencyItem username={username} handlerDel={deleteCurrency} handlerAdd={addCurrencyToDashboard} item={ currency } key={index.toString()} /> })}
         </tbody>
       </table>
     </div>
@@ -45,7 +46,7 @@ const CurrencyList = ({
 }
 
 
-const CurrencyItem = ({item, index, handlerAdd, username}) => {
+const CurrencyItem = ({item, index, handlerAdd, username, handlerDel}) => {
   const [dataItem, setDataItem] = useState([])
   const id = 1
   useEffect(() => {
@@ -61,6 +62,12 @@ const CurrencyItem = ({item, index, handlerAdd, username}) => {
 
     handlerAdd(id, JSON.stringify(cur_obj))
   }
+
+  const deleteItem = (id) => {
+    console.log('click', id)
+    handlerDel(id)
+  }
+
   
   return(
     <tr className='currencyItem' key={index}>
@@ -74,7 +81,10 @@ const CurrencyItem = ({item, index, handlerAdd, username}) => {
       <td data-label="market cap">{ item.market_cap }</td>
       <td data-label="actions" className='currencyItem-actions'>
         <button href='#' className='currencyItem-actions-edit' >edit</button>
-        <button className='currencyItem-actions-del' href=''>del</button>
+        <button
+          className='currencyItem-actions-del'
+          onClick={() => deleteItem(item.pk)}
+          href=''>del</button>
       </td>
     </tr>
   )}
@@ -89,5 +99,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { getAllCurrency, addCurrencyToDashboard, addCurrency })
+  { getAllCurrency, addCurrencyToDashboard, addCurrency, deleteCurrency })
   (CurrencyList)
