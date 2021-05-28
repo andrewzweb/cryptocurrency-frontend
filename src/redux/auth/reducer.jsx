@@ -20,7 +20,7 @@ const authReducer = (state = initialState, action) => {
       return { ...state, username: '', token: '', isAuthenticated: false};
 
     case types.SINGIN :
-      return { ...state, username: action.data['username'] };
+      return { ...state, username: action.data['username'], isAuthenticated: true };
     
     case types.SINGUP :
         return { ...state, token: action.data['token']};

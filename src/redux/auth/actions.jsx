@@ -4,7 +4,6 @@ import api from '../../api';
 
 export const singIn = () => {
   return async(dispatch, getState) => {
-    localStorage.getItem('token');
     api.auth.singin().then((res) =>
       dispatch({ type: types.SINGIN, data: res })
     )

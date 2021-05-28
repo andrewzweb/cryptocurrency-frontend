@@ -14,17 +14,15 @@ class Login extends Component {
     super(props);
     this.state = {
       displayed_form: 'login',
-      isAuthenticated: this.props.isAuthenticated,
-      username: this.props.username
     };
   }
 
   componentDidMount() {
-    if (this.props.isAuthenticated){
+    const token = localStorage.getItem("token");
+    if (token){
       this.props.singIn()
     }
   }
-
 
   handle_login = (e, data) => {
     e.preventDefault();
