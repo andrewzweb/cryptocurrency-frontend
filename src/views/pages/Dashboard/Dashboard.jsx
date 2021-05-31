@@ -1,58 +1,28 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import {connect} from 'react-redux'
+import MySocket from './socket'
+import { fetchDashboardData } from '../../../redux/dashboard/actions'
+import { socketCurrencyPath } from '../../../api'
 
-
-const Dashboard = ({ username }) => {
-  const [dashboard, setDashboard] = useState([]);
-  const [socketConnect, setSocketConnect] = useState(false);
-  const [socket, setSocket] = useState({});
-
-  useMemo(() => {
-    const Socket = new WebSocket(
-      'ws://'
-        + '127.0.0.1:8000'
-        + '/ws/dashboard/'
-        + username
-        + '/'
-    );
-    console.info('Socket connected!');
-    setSocketConnect(true)
-    return setSocket(Socket)
-  }, [ username ])
-
- 
-  useEffect(() => {
-    const fetchData = () => {
-      socket.send(JSON.stringify({
-        'command': 'update_dashboard',
-        'username': username
-      }))
-    };
-    socket.onopen = () => {
-      fetchData()
-    }
-    socket.onmessage = ({data, type}) => {
-      const raw_data = JSON.parse(data)
-      console.log('raw', raw_data)
-      const clean_data = raw_data['dashboard']['dashboard']
-      setDashboard(clean_data)
-    };
-    socket.onclose = function () {
-      console.info('Socket lost connection!')
-    };
-  }, [socket, socketConnect, username]);
-
+const Dashboard = ({
+  dashboardItems,
+  username,
+  fetchDashboardData
+}) => {
+  const [coins, setCoins] = useState([])
   
-  const dashboardList = dashboard.map((currency, idx) =>
-    <tr key={idx + 1}>
-      <td data-label="numb">{ idx }</td>
-      <td data-label="name">{ currency.name }</td>
-      <td data-label="symbol">{ currency.symbol }</td>
-      <td data-label="market_cap">{ currency.market }</td>
-      <td data-label="price">{ currency.price }</td>
-    </tr>
-  )
+  useEffect(() => {
+    fetchDashboardData(username)
+  }, [fetchDashboardData, username]);
 
+  useEffect(() => {
+    setCoins(dashboardItems.map((item) => item.name))
+  }, [dashboardItems])
+
+  const sockets = coins && coins.map((coin) =>
+    <MySocket path={socketCurrencyPath+coin+'/'}/>
+  );
+  
   return (
     <>
       <h1 className="category-name color-text" >Dashboard: { username }</h1>
@@ -67,15 +37,20 @@ const Dashboard = ({ username }) => {
           </tr>
         </thead>
         <tbody>
-          { dashboardList }
+          { sockets }
         </tbody>
       </table>
     </ > 
   )
 }
 
-const mapStateToProps = ({auth}) => ({
-     username: auth.username
+const mapStateToProps = ({auth, dashboard}) => ({
+     username: auth.username,
+     dashboardItems: dashboard.items
 });
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = (dispatch) => ({
+  fetchDashboardData: (data) => dispatch(fetchDashboardData(data)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

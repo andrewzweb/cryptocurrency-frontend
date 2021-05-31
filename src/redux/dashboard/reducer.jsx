@@ -1,13 +1,13 @@
 import * as types from "./types";
 
 const initialState = {
-  dashboard: []
+  items: []
 }
 
 const dashboardReducer = (state = initialState, action) => {
   switch (action.type) {
   case types.UPDATE_DASHBOARD :
-    return { ...state, dashboard: action.data };
+    return { ...state, items: action.data['currency'] };
   default:
     return state;
   }
