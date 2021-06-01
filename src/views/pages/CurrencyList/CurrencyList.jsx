@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux'
-import { getAllCurrency, addCurrencyToDashboard, addCurrency, deleteCurrency }  from '../../../redux/currency/actions'
+import { getAllCurrency, addCurrency, deleteCurrency }  from '../../../redux/currency/actions'
+import { fetchDashboardData, addCurrencyToDashboard }  from '../../../redux/dashboard/actions'
 import '../../../styles/css/table-styles.css'
 import AddCurrencyForm  from '../../forms/Currency/AddCurrencyForm'
+import Loader from '../../components/Loader/Loader' 
+
 
 const CurrencyList = ({
   username,
   currencies,
+  dashboard_id,
+  fetchDashboardData,
   isAuthenticated,
   addCurrency,
   deleteCurrency,
   getAllCurrency,
   addCurrencyToDashboard
 }) => {
+  const [loading, setLoading] = useState(true)
+  
   useEffect(() => {
+    setTimeout(() => {
       getAllCurrency()
-  }, [getAllCurrency])
-
+      fetchDashboardData(dashboard_id)
+      setLoading(false)
+    }, 2000)
+  }, [getAllCurrency, fetchDashboardData, dashboard_id])
 
   return (
     <div className='currencyList'>
@@ -24,6 +34,7 @@ const CurrencyList = ({
       <div>
         <AddCurrencyForm isAuthenticated={isAuthenticated} addCurrency={addCurrency}/>
       </div>
+      { loading  && <Loader/>}
       <table className="table-responsive">
       <thead>
           <tr>
@@ -37,8 +48,16 @@ const CurrencyList = ({
           </tr>
         </thead>
         <tbody>
-      { currencies && currencies.length > 0 && currencies.map(( currency, index ) => {
-        return <CurrencyItem username={username} handlerDel={deleteCurrency} handlerAdd={addCurrencyToDashboard} item={ currency } key={index.toString()} /> })}
+          
+          { currencies && currencies.length > 0 && currencies.map(( currency, index ) => {
+            return <CurrencyItem
+                     key={index.toString()}
+                     dashboard_id = {dashboard_id}
+                     username={username}
+                     handlerDel={deleteCurrency}
+                     handlerAdd={addCurrencyToDashboard}
+                     item={ currency }
+                   /> })}
         </tbody>
       </table>
     </div>
@@ -46,33 +65,12 @@ const CurrencyList = ({
 }
 
 
-const CurrencyItem = ({item, index, handlerAdd, username, handlerDel}) => {
-  const [dataItem, setDataItem] = useState([])
-  const id = 1
-  useEffect(() => {
-    setDataItem(item)
-  }, [item])
-  
-  const handlerAddToDashboard = () => {
-    const cur_obj = {
-      "account":
-        {"name": username },
-      "currency": [dataItem], 
-    }
-
-    handlerAdd(id, JSON.stringify(cur_obj))
-  }
-
-  const deleteItem = (id) => {
-    console.log('click', id)
-    handlerDel(id)
-  }
-
+const CurrencyItem = ({item, index, handlerAdd, handlerDel, dashboard_id}) => {
   
   return(
     <tr className='currencyItem' key={index}>
       <td data-label="add" className='currencyItem-actions'>
-        <button onClick={handlerAddToDashboard} className='currencyItem-actions-add' href='#'>+</button>
+        <button onClick={() => handlerAdd(dashboard_id, item)} className='currencyItem-actions-add' href='#'>+</button>
       </td>
       <td data-label="id">{ item.pk }</td>  
       <td data-label="nname">{ item.name }</td>
@@ -83,7 +81,7 @@ const CurrencyItem = ({item, index, handlerAdd, username, handlerDel}) => {
         <button href='#' className='currencyItem-actions-edit' >edit</button>
         <button
           className='currencyItem-actions-del'
-          onClick={() => deleteItem(item.pk)}
+          onClick={() => handlerDel(item.pk)}
           href=''>del</button>
       </td>
     </tr>
@@ -93,11 +91,18 @@ const CurrencyItem = ({item, index, handlerAdd, username, handlerDel}) => {
 const mapStateToProps = (state) => ({
   currencies: state.currency.items,
   username: state.auth.username,
+  dashboard_id: state.auth.dashboard_id,
   isAuthenticated: state.auth.isAuthenticated
 });
 
 
-export default connect(
-  mapStateToProps,
-  { getAllCurrency, addCurrencyToDashboard, addCurrency, deleteCurrency })
-  (CurrencyList)
+const mapDispatchToProps = (dispatch) => ({
+  getAllCurrency: () => dispatch(getAllCurrency()),
+  addCurrencyToDashboard: (id, data) => dispatch(addCurrencyToDashboard(id, data)),
+  addCurrency: (id) => dispatch(addCurrency(id)),
+  deleteCurrency: (id) => dispatch(deleteCurrency(id)),
+  fetchDashboardData: (id) => dispatch(fetchDashboardData(id))
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyList)
