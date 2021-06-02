@@ -25,7 +25,7 @@ const CurrencyList = ({
       getAllCurrency()
       fetchDashboardData(dashboard_id)
       setLoading(false)
-    }, 2000)
+    }, 1000)
   }, [getAllCurrency, fetchDashboardData, dashboard_id])
 
   return (
@@ -48,7 +48,6 @@ const CurrencyList = ({
           </tr>
         </thead>
         <tbody>
-          
           { currencies && currencies.length > 0 && currencies.map(( currency, index ) => {
             return <CurrencyItem
                      key={index.toString()}

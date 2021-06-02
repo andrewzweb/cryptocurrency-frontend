@@ -11,7 +11,6 @@ export const getAllCurrency = () => {
 }
 
 export const addCurrency = (data) => {
-  console.log('action', data)
   return async(dispatch, getState) => {
     api.currency.createCurrency(data).then((res) =>
       dispatch({ type: types.ADD_CURRENCY, data: res })

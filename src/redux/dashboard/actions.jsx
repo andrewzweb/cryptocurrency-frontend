@@ -32,7 +32,6 @@ export const delItemFromDashbord = (id, data) => {
       'account': {'name': state.auth.username},
       'currency': newCoin
     }
-    console.log('action data: ', newData)
     api.dashboard.delCurrencyFromDashboard(id, newData).then((res) =>
       dispatch({ type: types.DEL_CURRENCY_FROM_DASHBOARD, data: res})
     )

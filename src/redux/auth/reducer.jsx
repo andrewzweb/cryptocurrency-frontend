@@ -11,7 +11,6 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.LOGIN :
       localStorage.setItem('token', action.data['token'])
-      console.log('login data', action.data)
       return { ...state, 
         isAuthenticated: true,
         token: action.data['token'], 
@@ -35,10 +34,8 @@ const authReducer = (state = initialState, action) => {
         dashboard_id: action.data['dashboard_id'],
         isAuthenticated: true
       };
-    
     case types.SINGUP :
         return { ...state, token: action.data['token']};
-    
     default:
       return state;
   }

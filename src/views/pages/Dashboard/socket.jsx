@@ -13,7 +13,7 @@ const TestSocket = (props) => {
     console.log('Connect socket')
     const socket = new WebSocket(props['path'])
     return socket
-  }, [])
+  }, [props])
   
   useEffect(() => {
     socket.onopen = () => {
@@ -35,7 +35,7 @@ const TestSocket = (props) => {
     socket.onclose = function () {
       console.info('Socket lost connection!')
     };
-  }, [socket])
+  }, [socket, props])
 
   const deleteHandler = (id, data) => {
     console.log('click')
