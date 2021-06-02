@@ -43,13 +43,4 @@ export default {
     };
     return axios(config).then((res) => res && res.data);
   },
-  addCurrencyToDashboard: (id, data) => {
-    let config = {
-      method: "PUT",
-      baseURL: `${TEST_API}/api/dashboard/${id}`,
-      headers: setHeader(),
-      data,
-    };
-    return axios(config).then((res) => res && res.data);
-  },
 };

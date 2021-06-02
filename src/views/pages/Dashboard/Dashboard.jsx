@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import {connect} from 'react-redux'
 import MySocket from './socket'
-import { fetchDashboardData } from '../../../redux/dashboard/actions'
+import { fetchDashboardData, delItemFromDashbord } from '../../../redux/dashboard/actions'
 import { socketCurrencyPath } from '../../../api'
 import Loader from '../../components/Loader/Loader' 
 
@@ -10,7 +10,8 @@ const Dashboard = ({
   dashboardItems,
   dashboard_id,
   username,
-  fetchDashboardData
+  fetchDashboardData,
+  delItemFromDashbord
 }) => {
   const [coins, setCoins] = useState([])
   const [loading, setLoading] = useState(true)
@@ -21,7 +22,7 @@ const Dashboard = ({
   }, [dashboardItems])
 
   const sockets = coins && coins.map((coin) =>
-    <MySocket path={socketCurrencyPath+coin+'/'}/>
+    <MySocket dashboard_id={dashboard_id} delHandler={delItemFromDashbord} path={socketCurrencyPath+coin+'/'}/>
   );
   
   return (
@@ -36,6 +37,7 @@ const Dashboard = ({
             <th>Symbol</th>
             <th>Market Cap</th>
             <th>Price</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +56,7 @@ const mapStateToProps = ({auth, dashboard}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchDashboardData: (data) => dispatch(fetchDashboardData(data)),
+  delItemFromDashbord: (id, data) => dispatch(delItemFromDashbord(id, data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

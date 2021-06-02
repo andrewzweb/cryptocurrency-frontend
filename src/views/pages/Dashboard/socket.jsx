@@ -37,6 +37,11 @@ const TestSocket = (props) => {
     };
   }, [socket])
 
+  const deleteHandler = (id, data) => {
+    console.log('click')
+    props.delHandler(id, data)
+  }
+
   return (
      <tr>
        <td data-label="numb">{data.id}</td>
@@ -44,6 +49,9 @@ const TestSocket = (props) => {
        <td data-label="symbol">{data.symbol}</td>
        <td data-label="market_cap">{data.market_cap}</td>
        <td data-label="price">{data.price}</td>
+       <td data-label="action">
+         <button onClick={() => deleteHandler(props.dashboard_id, data)}>Del</button>
+       </td>
     </tr>
   )
 }
