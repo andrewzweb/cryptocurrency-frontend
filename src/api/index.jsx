@@ -5,7 +5,7 @@ import auth from './auth'
 import dashboard from './dashboard'
 
 export const TEST_API = 'http://localhost:8000';
-export const socketCurrencyPath = 'ws://127.0.0.1:8000/ws/currency/';
+export const socketCurrencyPath = 'ws://127.0.0.1:8001/ws/currency/';
 
 export const setHeader = () => {
   const token = localStorage.getItem("token");
